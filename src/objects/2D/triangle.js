@@ -28,7 +28,9 @@ export class Triangle {
     this.gl = gl;
     this.program = program;
 
-    this.buffer = null;
+    this.positionBuffer = null;
+    this.colorBuffer = null;
+
     this.attrs = {};
     this.uniforms = {};
 
@@ -38,18 +40,21 @@ export class Triangle {
       ...Object.values(c),
     ];
 
+    this.colors = []
+
     this.size = 3;
 
-    this.createBuffer();
+    this.createBuffers();
     this.bindBuffer();
-    this.fillBuffer();
+    this.fillBuffers();
 
     this.defineAttrs();
     this.defineUniforms();
   }
 
   createBuffer() {
-    this.buffer = this.gl.createBuffer();
+    this.positionBuffer = this.gl.createBuffer();
+    this.colorBuffer = this.gl.createBuffer();
   }
 
   bindBuffer() {
@@ -93,15 +98,15 @@ export class Triangle {
   }
 
   updateUniforms() {
-    this.uniforms.color([.4, .1, .3, .4]);
+    this.uniforms.color([Math.random(), Math.random(), Math.random(), 1.0]);
   }
 
   render() {
     this.enableAttributes();
+    this.updateAttrs();
 
     this.bindBuffer();
 
-    this.updateAttrs();
     this.updateUniforms();
 
     this.gl.drawArrays(this.gl.TRIANGLES, 0, this.size);

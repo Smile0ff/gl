@@ -17,7 +17,7 @@ const config = {
     filename: '[name].bundle.js',
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.glsl'],
+    extensions: ['.js', '.jsx', '.json', '.glsl', '.vs', '.fs'],
   },
   module: {
     rules: [
